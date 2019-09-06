@@ -11,7 +11,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/goodatlas/react-native-audio-record.git"
+    "url": "https://github.com/siddiqaa/react-native-audio-record-with-loudness.git"
   },
   "devDependencies": {
     "babel-eslint": "^8.2.3",
