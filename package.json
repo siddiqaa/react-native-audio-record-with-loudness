@@ -1,6 +1,6 @@
 {
   "name": "react-native-audio-record-with-loudness",
-  "version": "0.2.5",
+  "version": "0.2.6",
   "description": "Audio record buffers for React Native with loudness calculation",
   "author": "Vinay",
   "license": "MIT",
