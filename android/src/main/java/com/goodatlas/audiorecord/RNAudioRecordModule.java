@@ -102,6 +102,14 @@ public class RNAudioRecordModule extends ReactContextBaseJavaModule {
                     int count = 0;
                     String base64Data;
                     byte[] buffer = new byte[bufferSize];
+                    
+                    short[] shorts = new short[bytes.length/2];
+                    // to turn bytes to shorts as either big endian or little endian. 
+                    ByteBuffer.wrap(bytes).order(ByteOrder.LITTLE_ENDIAN).asShortBuffer().get(shorts);
+                    double loudness = calcRMS(shorts);
+                    // System.out.println("ReactNativeJs: RMS: " + loudness);
+                    cb.invoke(loudness);
+                    
                     FileOutputStream os = new FileOutputStream(tmpFile);
 
                     while (isRecording) {
@@ -133,6 +141,18 @@ public class RNAudioRecordModule extends ReactContextBaseJavaModule {
         isRecording = false;
         stopRecordingPromise = promise;
     }
+    
+    
+    private double calcRMS(short[] data){
+        long sum = 0;
+        for (short d:data){
+          sum += d*d;
+        }
+
+        double rms = Math.sqrt(sum / data.length);
+        return rms;
+    }
+    
 
     private void saveAsWav() {
         try {
