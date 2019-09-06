@@ -105,7 +105,7 @@ public class RNAudioRecordModule extends ReactContextBaseJavaModule {
                     String base64Data;
                     byte[] buffer = new byte[bufferSize];
                     
-                    short[] shorts = new short[bytes.length/2];
+                    short[] shorts = new short[buffer.length/2];
                     // to turn bytes to shorts as either big endian or little endian. 
                     ByteBuffer.wrap(bytes).order(ByteOrder.LITTLE_ENDIAN).asShortBuffer().get(shorts);
                     loudness = calcRMS(shorts);
