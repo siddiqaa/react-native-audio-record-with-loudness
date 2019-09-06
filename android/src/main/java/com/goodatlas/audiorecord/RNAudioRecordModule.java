@@ -35,6 +35,8 @@ public class RNAudioRecordModule extends ReactContextBaseJavaModule {
     private String tmpFile;
     private String outFile;
     private Promise stopRecordingPromise;
+    
+    private double loudness;
 
 
     public RNAudioRecordModule(ReactApplicationContext reactContext) {
@@ -106,9 +108,9 @@ public class RNAudioRecordModule extends ReactContextBaseJavaModule {
                     short[] shorts = new short[bytes.length/2];
                     // to turn bytes to shorts as either big endian or little endian. 
                     ByteBuffer.wrap(bytes).order(ByteOrder.LITTLE_ENDIAN).asShortBuffer().get(shorts);
-                    double loudness = calcRMS(shorts);
+                    loudness = calcRMS(shorts);
                     // System.out.println("ReactNativeJs: RMS: " + loudness);
-                    cb.invoke(loudness);
+                    
                     
                     FileOutputStream os = new FileOutputStream(tmpFile);
 
@@ -142,6 +144,10 @@ public class RNAudioRecordModule extends ReactContextBaseJavaModule {
         stopRecordingPromise = promise;
     }
     
+    @ReactMethod
+    public void getLoudness(Callback cb) {
+        cb.invoke(loudness);
+    }
     
     private double calcRMS(short[] data){
         long sum = 0;
