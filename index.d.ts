@@ -3,6 +3,7 @@ declare module "react-native-audio-record" {
     init: (options: Options) => void
     start: () => void
     stop: () => Promise<string>
+    getLoudness: () => number
     on: (event: "data", callback: (data: string) => void) => void
   }
 
