@@ -7,6 +7,7 @@ const AudioRecord = {};
 AudioRecord.init = options => RNAudioRecord.init(options);
 AudioRecord.start = () => RNAudioRecord.start();
 AudioRecord.stop = () => RNAudioRecord.stop();
+AudioRecord.getLoudness = () => RNAudioRecord.getLoudness();
 
 const eventsMap = {
   data: 'data'
